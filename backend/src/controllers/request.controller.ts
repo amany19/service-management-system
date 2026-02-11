@@ -9,7 +9,12 @@ export class RequestController {
   create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const request = await this.service.createRequest(req.body);
-      if (this.io) this.io.emit("new_request", request);
+          if (!this.io) {
+      console.log("❌ Socket.io instance NOT injected");
+    } else {
+      console.log("📡 Emitting new request");
+      this.io.emit("new_request", request);
+    }
       res.status(201).json(request);
     } catch (err) {
       next(err);
@@ -29,6 +34,8 @@ export class RequestController {
     try {
       
       const updated = await this.service.updateStatus(req.body);
+   console.log("📡 Emitting updated_request:", updated);
+
 
       if (this.io) this.io.emit("update_request", updated);
       res.json(updated);

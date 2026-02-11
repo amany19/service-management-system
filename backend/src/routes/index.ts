@@ -1,10 +1,13 @@
-import express, {  Router } from 'express';
+import { Router } from "express";
+import { createRequestRouter } from "./api/request.routes";
+import { Server } from "socket.io";
 import authRoutes from './api/auth.routes'
 import serviceRoutes from './api/service.routes'
-import requestRoutes from './api/request.routes'
-const routes = Router();
+export const createRoutes = (io: Server) => {
+    const router = Router();
+    router.use('/auth', authRoutes);
+    router.use('/service', serviceRoutes);
+    router.use("/request", createRequestRouter(io));
 
-routes.use('/auth', authRoutes);
-routes.use('/service', serviceRoutes);
-routes.use('/request', requestRoutes);
-export default routes
+    return router;
+};
