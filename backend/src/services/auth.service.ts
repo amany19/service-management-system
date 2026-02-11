@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import { IAuthRepository } from '../repositories/persistence';
 import { RegisterDTO, LoginDTO, UserType } from '../types';
 import { IAuthService } from './interfaces';
+import { AppError } from '../errors/AppError';
+import { Role } from '@prisma/client';
 
 export class AuthService implements IAuthService {
   constructor(private authRepository: IAuthRepository) {}
@@ -11,16 +13,16 @@ export class AuthService implements IAuthService {
     const existingUser = await this.authRepository.findByEmail(data.email);
 
     if (existingUser) {
-      throw new Error('User already exists');
+      throw new AppError('User already exists', 400);
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
     const user = await this.authRepository.createUser({
-      name:data.name,
+      name: data.name,
       email: data.email,
       password: hashedPassword,
-      role: data.role || 'MOBILE_USER',
+      role: data.role ? (data.role as Role) : Role.MOBILE_USER,
     });
 
     return this.generateToken(user);
@@ -29,14 +31,8 @@ export class AuthService implements IAuthService {
   async login(data: LoginDTO) {
     const user = await this.authRepository.findByEmail(data.email);
 
-    if (!user) {
-      throw new Error('Invalid credentials');
-    }
-
-    const isMatch = await bcrypt.compare(data.password, user.password);
-
-    if (!isMatch) {
-      throw new Error('Invalid credentials');
+    if (!user || !(await bcrypt.compare(data.password, user.password))) {
+      throw new AppError('Invalid credentials', 401);
     }
 
     return this.generateToken(user);
