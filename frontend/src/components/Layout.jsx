@@ -31,7 +31,7 @@ export default function Layout() {
 
               {/* Desktop Navigation Links */}
               <div className="hidden md:flex items-center space-x-2">
-                <Link to="/" className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeClass("/")}`}>
+                <Link to="/dashboard" className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeClass("/")}`}>
                   Dashboard
                 </Link>
                 <Link to="/users" className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeClass("/users")}`}>

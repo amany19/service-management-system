@@ -7,12 +7,11 @@ import { createRoutes } from "./routes";
 const server = http.createServer(app);
 
 export const io = new Server(server, {
-  cors: {   origin: "http://localhost:5173", // your frontend
-  methods: ["GET","POST","PATCH","DELETE","OPTIONS"],
+  cors: {   origin: "http://localhost:5173", 
+  methods: ["GET","POST","PATCH","PUT","DELETE","OPTIONS"],
   credentials: true},
 });
 
-// inject io into routes
 app.use("/api", createRoutes(io));
 
 io.on("connection", (socket) => {

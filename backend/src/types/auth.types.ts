@@ -1,10 +1,3 @@
-export interface UserType{
-  id: string;
-  name:string;
-  email: string;
-  password: string;
-  role: 'ADMIN' | 'MOBILE_USER';
-}
 
 export interface RegisterDTO {
   name:string;
