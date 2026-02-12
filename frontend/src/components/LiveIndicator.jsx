@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import socket from "../sockets/socket";
 
 export default function LiveIndicator() {
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(socket.connected);
 
   useEffect(() => {
-    socket.connect();
+    const handleConnect = () => setConnected(true);
+    const handleDisconnect = () => setConnected(false);
 
-    socket.on("connect", () => setConnected(true));
-    socket.on("disconnect", () => setConnected(false));
+    socket.on("connect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
 
-    return () => socket.disconnect();
+    return () => {
+      socket.off("connect", handleConnect);
+      socket.off("disconnect", handleDisconnect);
+    };
   }, []);
 
   return (
