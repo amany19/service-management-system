@@ -16,7 +16,7 @@ router.post(
   '/',
   authenticate,
   authorize('ADMIN'),
-  userController.getAll.bind(userController)
+  userController.createUser.bind(userController)
 );
 router.get(
   '/',

@@ -9,6 +9,7 @@ export default function Users() {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
+    console.log("blablalba",users);
     const fetchUsers = async () => {
       try {
         const res = await api.get("/user");
@@ -49,7 +50,11 @@ export default function Users() {
           prev.map((u) => (u.id === res.data.id ? res.data : u))
         );
       } else {
+        console.log("data: ", data)
+
         const res = await api.post("/user", data);
+        console.log("res: ", res)
+
         setUsers((prev) => [res.data, ...prev]);
       }
       setModalOpen(false);

@@ -4,6 +4,16 @@ import { IUserService } from '../services/interfaces';
 export class UserController {
   constructor(private userService: IUserService) {}
 
+  async createUser(req: Request, res: Response) {
+    try {
+      const newUser = await this.userService.createUser(req.body);
+
+      res.status(201).json(newUser);
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
   async getAll(req: Request, res: Response) {
     try {
       const users = await this.userService.getAllUsers();

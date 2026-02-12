@@ -17,12 +17,12 @@ export class UserService implements IUserService {
   ) {}
 
 
-  async createUser({ name, email, password, role }: CreateUserDTO): Promise<UserType> {
+  async createUser({ name, email, password, role }: CreateUserDTO): Promise<SafeUser> {
     const existing = await this.authRepository.findByEmail(email);
     if (existing) throw new Error('Email already exists');
 
     const hashed = await bcrypt.hash(password, 10);
-    return this.authRepository.createUser({ name, email, password: hashed, role });
+    return this.userRepository.create({ name, email, password: hashed, role });
   }
 
 

@@ -67,14 +67,14 @@ export default function Services() {
     }
   };
 
-  // Save (create or update) service
+  
  const handleSave = async (data) => {
   try {
-    // Ensure price is a float
+   
     const payload = { ...data, price: parseFloat(data.price) };
 
     if (editingService) {
-      // Update
+     
       const res = await api.patch(`/service/${editingService.id}`, payload);
       setServices((prev) =>
         prev.map((s) => (s.id === res.data.id ? res.data : s))

@@ -1,7 +1,12 @@
 import { UserType, SafeUser } from '../../types';
 
 export interface IUserRepository {
-    
+   create(data: {
+    name: string;
+    email: string;
+    password: string;
+    role: 'ADMIN' | 'MOBILE_USER';
+  }): Promise<SafeUser> 
   findAll(): Promise<SafeUser[]>;
   findById(id: number): Promise<SafeUser | null>;
   create(data: {

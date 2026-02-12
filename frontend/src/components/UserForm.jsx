@@ -4,7 +4,7 @@ export default function UserForm({ user, onSave, onClose }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    role: "user",
+    role: "MOBILE_USER",
     password: "" 
   });
 
@@ -14,8 +14,8 @@ export default function UserForm({ user, onSave, onClose }) {
         name: user.name || "",
 
         email: user.email || "",
-        role: user.role || "user",
-        password: "" // leave blank when editing
+        role: user.role || "MOBILE_USER",
+        password: "" 
       });
     }
   }, [user]);
@@ -96,8 +96,8 @@ export default function UserForm({ user, onSave, onClose }) {
                 onChange={handleChange}
                 className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none bg-white"
               >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
+                <option value="MOBILE_USER">User</option>
+                <option value="ADMIN">Admin</option>
               </select>
             </div>
           </div>
