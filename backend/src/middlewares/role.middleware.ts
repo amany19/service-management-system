@@ -1,9 +1,9 @@
 import { Response, NextFunction } from 'express';
 import { AuthRequest } from './auth.middleware';
 
-export const authorize = (role: 'ADMIN' | 'MOBILE_USER') => {
+export const authorize = (...roles: ('ADMIN' | 'MOBILE_USER')[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
-    if (req.user?.role !== role) {
+    if (!req.user || !roles.includes(req.user.role)) {
       return res.status(403).json({ message: 'Forbidden' });
     }
     next();

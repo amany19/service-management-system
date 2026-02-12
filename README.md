@@ -8,7 +8,7 @@ This project is a **Production-Ready Service Management System**, consisting of:
 * **Mobile Backend APIs** – Node.js/Express backend handling user authentication, service requests, and live updates.
 
 The system implements **real-time synchronization**: any service request created via the API instantly updates the Admin Dashboard without page refresh.
-
+* **API Documentation link** https://www.postman.com/aman77-6020/private-workspace/collection/37843902-807c2363-d712-4043-b479-81c75b0361fc/?action=share&creator=37843902
 ## Tech Stack
 
 **Backend:**
