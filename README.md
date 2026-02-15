@@ -14,6 +14,7 @@ The system implements **real-time synchronization**: any service request created
 **Backend:**
 
 * Node.js & Express.js
+* Typescript
 * Prisma ORM & MySQL
 * Socket.io for real-time communication
 * JWT Authentication
@@ -118,7 +119,6 @@ Controllers → Services → Repositories → Database
 
 * Initialize the project architecture(front&back) first with a module(Repositories-Services-controllers) for Auth
 * Review initialized module code using AI prompts
-* Prompts were used to generate boilerplate code for Controllers, Services, Repositories.
 * Prompts to generate UI components and pages
 * AI-generated code was **refactored** for type safety, clean architecture, and production-readiness.
 * Interfaces (`IUserService`, `IAuthRepository`) and type definitions (`UserType`, `SafeUser`) ensure strong typing.
